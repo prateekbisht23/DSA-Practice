@@ -1,4 +1,4 @@
-public class Name {
+public class Ques1 {
     public static void main(String[] args) {
         //String str = args[0];
         //String str = new String();
