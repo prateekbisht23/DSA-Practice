@@ -1,0 +1,10 @@
+Q. Can we change the signature of main
+Ans. Yes, you can change the signature of the main method in Java, but it won't be recognized as the entry point of your program by the Java Virtual Machine (JVM). The JVM specifically looks for the main method with the following signature to start the program
+
+Q. Can we have more than 1 main in single Java class
+Ans. Yes, you can have more than one main method in a single Java class, but only one of them will have the correct signature that the JVM recognizes as the entry point. The recognized entry point is:
+public static void main(String[] args)
+
+Q. Can we have class name and file name must be same
+Ans. In Java, the class name and the file name must be the same if the class is declared as public.
+When a class is declared as public, it means that the class is accessible from any other class in any package. Due to its accessibility and potential widespread use, it’s important that the class can be easily located. To achieve this, Java enforces the rule that the file name must match the public class name. This way, anyone looking for the definition of the public class knows exactly where to find it.
