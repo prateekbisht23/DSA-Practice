@@ -6,6 +6,7 @@ public class RefDemo {
         String a = "Amit";
         String b = "Amit";
         a = "Ram";
+
     }
 }
 
