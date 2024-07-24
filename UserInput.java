@@ -18,29 +18,28 @@ class Employee{
 public class UserInput{
     public static void main(String[] args) {
         Employee emp = new Employee();
-        
+
         /* emp.name = "Ramesh";
         emp.age = 20;
         emp.salary = 52000f;
         emp.address = "Pune";
-        
         emp.showDetails(); */
 
         //take input
         
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Name : ");
-        emp.name = scanner.nextLine();
-        System.out.print("Enter Age : ");
-        emp.age = scanner.nextShort();
-        System.out.print("Enter Salary : ");
-        emp.salary = scanner.nextFloat();
-        scanner.nextLine();  /* It is reading the newline character left in the input buffer by 
-        'scanner.nextFloat()'*/
-        System.out.print("Enter Address : ");
-        emp.address = scanner.nextLine();
-        
-        emp.showDetails();
-        
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Enter Name : ");
+            emp.name = scanner.nextLine();
+            System.out.print("Enter Age : ");
+            emp.age = scanner.nextShort();
+            System.out.print("Enter Salary : ");
+            emp.salary = scanner.nextFloat();
+            scanner.nextLine();  /* It is reading the newline character left in the input buffer by
+            'scanner.nextFloat()'*/
+            System.out.print("Enter Address : ");
+            emp.address = scanner.nextLine();
+            
+            emp.showDetails();
+        }
     }
 }
