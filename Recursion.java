@@ -1,14 +1,13 @@
 public class Recursion {
-    static void showName(int num){
+    static void printName(int num){
         if(num == 0){
             return;
         }
-        num--;
-        System.out.println("Hi");
-        showName(num);
+        System.out.println("Prateek");
+        printName(num-1);
     }
     public static void main(String[] args) {
-        showName(5);
+        printName(5);
     }
     
 }
