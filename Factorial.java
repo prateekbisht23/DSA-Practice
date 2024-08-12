@@ -6,10 +6,20 @@ public class Factorial {
         }
         return num * factorial(num-1);
     }
-    public static void main(String[] args) {
-        int num = 4;
-        int fact = factorial(num);
 
-        System.out.println(fact);
+    static void factorial(int num, int r){
+        if(num == 1){
+            System.out.println(r);
+            return;
+        }
+        factorial(num-1, num * r);
+    }
+
+    public static void main(String[] args) {
+        int num = 5, r = 1;
+        System.out.println(factorial(num));
+
+        factorial(num, r);
+
     }
 }

@@ -6,15 +6,18 @@ public class SumOfDigitsrec {
         return (num%10) + sumOfDigits(num/10);
     }
 
-    /* static void sumOfDigits(int num, int sum){
+    static void sumOfDigits(int num, int sum){
         if(num == 0){
             System.out.println(sum);
             return;
         }
         sumOfDigits(num/10, sum+num%10);
-    } */
+    }
+
     public static void main(String[] args) {
-        int num = 12345;
+        int num = 12345, sum = 0;
         System.out.println(sumOfDigits(num));
+
+        sumOfDigits(num, sum);
     }   
 }
