@@ -3,13 +3,15 @@ public class PrintTable {
         return helper(num, 10);
     }
     static String helper(int num, int count){
-        if(count == 1){
-            return num + " * "+count+" = "+count*num+"\n";
+        if(count == 0){
+            return "";
         }
         return helper(num, count-1) + num + " * "+count+" = "+count*num+"\n"; 
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) {    
+        int number = 15;
         int num = 7;
+        System.out.println(printTable(number));
         System.out.println(printTable(num));
     }
 }

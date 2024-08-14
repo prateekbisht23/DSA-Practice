@@ -40,133 +40,109 @@ public class VendingMachine {
 
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachine {
 
-    private Map<String, Item> inventory = new HashMap<>();
-    private double balance = 0.0;
-
-    public VendingMachine() {
-        // Initialize with some items
-        inventory.put("A1", new Item("Soda", 1.25, 10));
-        inventory.put("B1", new Item("Chips", 1.00, 5));
-        inventory.put("C1", new Item("Candy", 0.75, 20));
-    }
-
-    public void displayItems() {
-        System.out.println("Items available:");
-        for (Map.Entry<String, Item> entry : inventory.entrySet()) {
-            String code = entry.getKey();
-            Item item = entry.getValue();
-            System.out.printf("%s: %s ($%.2f) - %d in stock\n", code, item.getName(), item.getPrice(), item.getQuantity());
+    static void displayItems(HashMap<String, String> items, HashMap<String, Integer> cost, HashMap<String, Integer> stock){
+        System.out.println("\nItems available:");
+        /* for (int i=1; i<=items.size(); i++) {
+            System.out.println(i+": "+items.get(i)+" (₹"+cost.get(i)+") - "+ stock.get(i)+" in stock");
+        } */
+       /* for (iterable_type iterable_element : iterable) {
+        
+       } */
+        for (HashMap.Entry<String, String> entry : items.entrySet()) {
+            //System.out.println(entry.getValue());
+            System.out.println(entry.getKey()+": "+entry.getValue()+" (₹"+cost.get(entry.getKey())+") - "+ stock.get(entry.getKey())+" in stock");
         }
     }
 
-    public void insertMoney(double amount) {
-        if (amount > 0) {
-            balance += amount;
-            System.out.printf("You inserted $%.2f. Current balance: $%.2f\n", amount, balance);
-        } else {
-            System.out.println("Invalid amount.");
-        }
-    }
-
-    public void selectItem(String code) {
-        Item item = inventory.get(code);
-        if (item == null) {
-            System.out.println("Invalid selection.");
-            return;
-        }
-
-        if (item.getQuantity() <= 0) {
-            System.out.println("Item out of stock.");
-            return;
-        }
-
-        if (balance >= item.getPrice()) {
-            balance -= item.getPrice();
-            item.decreaseQuantity();
-            System.out.printf("Dispensing %s. Remaining balance: $%.2f\n", item.getName(), balance);
-        } else {
-            System.out.printf("Insufficient balance. Please insert more money. Item price: $%.2f, current balance: $%.2f\n", item.getPrice(), balance);
-        }
-    }
-
-    public void returnChange() {
-        System.out.printf("Returning change: $%.2f\n", balance);
-        balance = 0;
-    }
 
     public static void main(String[] args) {
-        VendingMachine vendingMachine = new VendingMachine();
-        Scanner scanner = new Scanner(System.in);
+        try(Scanner scanner = new Scanner(System.in)){
 
-        while (true) {
-            System.out.println("\n1. Display Items");
-            System.out.println("2. Insert Money");
-            System.out.println("3. Select Item");
-            System.out.println("4. Return Change");
-            System.out.println("5. Exit");
-            System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
+            HashMap<String, String> items = new HashMap<>();
+            HashMap<String, Integer> cost = new HashMap<>();
+            HashMap<String, Integer> stock = new HashMap<>();
 
-            switch (choice) {
-                case 1:
-                    vendingMachine.displayItems();
-                    break;
-                case 2:
-                    System.out.print("Enter amount to insert: ");
-                    double amount = scanner.nextDouble();
-                    vendingMachine.insertMoney(amount);
-                    break;
-                case 3:
-                    System.out.print("Enter item code: ");
-                    String code = scanner.next();
-                    vendingMachine.selectItem(code);
-                    break;
-                case 4:
-                    vendingMachine.returnChange();
-                    break;
-                case 5:
-                    vendingMachine.returnChange();
-                    System.out.println("Thank you for using the vending machine.");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+
+            int balance = 0;
+
+
+            items.put("A1", "Soda");
+            items.put("C2", "Chips");
+            items.put("D3", "Candy");
+            items.put("B4", "Water");
+
+            cost.put("A1", 25);
+            cost.put("C2", 30);
+            cost.put("D3", 10);
+            cost.put("B4", 20);
+
+            stock.put("A1", 11);
+            stock.put("C2", 19);
+            stock.put("D3", 6);
+            stock.put("B4", 8);
+
+        
+            while (true) {
+                System.out.println("\n\n1. Display Items");
+                System.out.println("2. Insert Money");
+                System.out.println("3. Select Item");
+                System.out.println("4. Return Change");
+                System.out.println("5. Exit");
+                System.out.print("Choose an option: ");
+                int choice = scanner.nextInt();
+
+            
+                switch (choice) {
+                    case 1 -> displayItems(items, cost, stock);
+                    case 2 -> {
+                        System.out.print("\nEnter amount to insert: ");
+                        int amount = scanner.nextInt();
+                        balance += amount;
+                    }
+                    case 3 -> {
+                        System.out.print("\nEnter item code: ");
+                        String code = scanner.next();
+                        String item = items.get(code);
+
+                        if (item == null) {
+                            System.out.println("\nInvalid selection.");
+                            return;
+                        }
+            
+                        if (stock.get(code) <= 0) {
+                            System.out.println("\nItem out of stock.");
+                            return;
+                        }
+            
+                        if (balance >= cost.get(code)) {
+                            balance -= cost.get(code);
+                            stock.put(code, stock.get(code) - 1);
+                            System.out.println("\nDispensing "+items.get(code)+". \nRemaining balance: "+balance);
+                        } else {
+                            System.out.println("\nInsufficient balance. Please insert more money. \nItem price: "   +cost.get(code)+", current balance: "+balance);
+                        }
+
+                    }
+                    case 4 ->{
+                        System.out.println("Returning change: "+balance);
+                        balance = 0;
+                    }
+                    case 5 -> {
+                        System.out.println("\nReturning change: "+balance);
+                        //balance = 0;
+                        System.out.println("\nThank you for using the vending machine.");
+                        return;
+                    }
+                    default -> System.out.println("Invalid choice. Please try again.");
+                }
+            
             }
         }
-    }
-}
 
-class Item {
-    private String name;
-    private double price;
-    private int quantity;
-
-    public Item(String name, double price, int quantity) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void decreaseQuantity() {
-        if (quantity > 0) {
-            quantity--;
-        }
+        
     }
 }
