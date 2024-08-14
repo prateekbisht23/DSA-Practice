@@ -58,6 +58,64 @@ public class VendingMachine {
         }
     }
 
+    static void calculateBalance(int balance){
+
+        HashMap<Integer,Integer> currency = new HashMap<>();
+
+        currency.put(200, 0);
+        currency.put(100, 0);
+        currency.put(50, 0);
+        currency.put(20, 0);
+        currency.put(10, 0);
+        currency.put(5, 0);
+        currency.put(2, 0);
+        currency.put(1, 0);
+
+
+        while(balance != 0){
+            if(balance > 200){
+                currency.put(200, balance/200);
+                balance %= 200;
+            }
+            if(balance > 100){
+                currency.put(100, balance/100);
+                balance %= 100;
+            }
+            if(balance > 50){
+                currency.put(50, balance/50);
+                balance %= 50;
+            }
+            if(balance > 10){
+                currency.put(10, balance/10);
+                balance %= 10;
+            }
+            if(balance > 5){
+                currency.put(5, balance/5);
+                balance %= 5;
+            }
+            if(balance > 2){
+                currency.put(2, balance/2);
+                balance %= 2;
+            }
+            if(balance > 1){
+                currency.put(1, balance/1);
+                balance %= 1;
+            }
+        }
+
+
+        for (HashMap.Entry<Integer, Integer> entry : currency.entrySet()) {
+            //System.out.println(entry.getValue());
+            if(entry.getValue() != 0){
+                System.out.print("₹"+entry.getKey()+"("+entry.getValue()+")  ");
+            }
+        }
+
+        System.out.println();
+
+    }
+
+
 
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in)){
@@ -65,6 +123,11 @@ public class VendingMachine {
             HashMap<String, String> items = new HashMap<>();
             HashMap<String, Integer> cost = new HashMap<>();
             HashMap<String, Integer> stock = new HashMap<>();
+
+            //HashMap<Integer, Array> all = new HashMap<>();
+
+
+            //all.put(1, {"Soda",25,11});
 
 
             int balance = 0;
@@ -81,7 +144,7 @@ public class VendingMachine {
             cost.put("B4", 20);
 
             stock.put("A1", 11);
-            stock.put("C2", 19);
+            stock.put("C2", 15);
             stock.put("D3", 6);
             stock.put("B4", 8);
 
@@ -99,7 +162,7 @@ public class VendingMachine {
                 switch (choice) {
                     case 1 -> displayItems(items, cost, stock);
                     case 2 -> {
-                        System.out.print("\nEnter amount to insert: ");
+                        System.out.print("\nEnter amount to insert: ₹");
                         int amount = scanner.nextInt();
                         balance += amount;
                     }
@@ -128,11 +191,13 @@ public class VendingMachine {
 
                     }
                     case 4 ->{
-                        System.out.println("Returning change: "+balance);
+                        System.out.println("\nReturning change: ");
+                        calculateBalance(balance);
                         balance = 0;
                     }
                     case 5 -> {
-                        System.out.println("\nReturning change: "+balance);
+                        System.out.println("\nReturning change: ");
+                        calculateBalance(balance);
                         //balance = 0;
                         System.out.println("\nThank you for using the vending machine.");
                         return;
