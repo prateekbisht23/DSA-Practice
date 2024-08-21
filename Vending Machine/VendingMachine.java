@@ -52,9 +52,12 @@ public class VendingMachine {
        /* for (iterable_type iterable_element : iterable) {
         
        } */
-        for (HashMap.Entry<String, String> entry : items.entrySet()) {
+       /* for (HashMap.Entry<String, String> entry : items.entrySet()) {
             //System.out.println(entry.getValue());
             System.out.println(entry.getKey()+": "+entry.getValue()+" (₹"+cost.get(entry.getKey())+") - "+ stock.get(entry.getKey())+" in stock");
+        } */
+        for(String i : items.keySet()){
+            System.out.println(i+": "+items.get(i)+" (₹"+cost.get(i)+") - "+ stock.get(i)+" in stock");
         }
     }
 
@@ -73,47 +76,73 @@ public class VendingMachine {
 
 
         while(balance != 0){
-            if(balance > 200){
+            if(balance >= 200){
                 currency.put(200, balance/200);
                 balance %= 200;
             }
-            if(balance > 100){
+            if(balance >= 100){
                 currency.put(100, balance/100);
                 balance %= 100;
             }
-            if(balance > 50){
+            if(balance >= 50){
                 currency.put(50, balance/50);
                 balance %= 50;
             }
-            if(balance > 10){
+            if(balance >= 10){
                 currency.put(10, balance/10);
                 balance %= 10;
             }
-            if(balance > 5){
+            if(balance >= 5){
                 currency.put(5, balance/5);
                 balance %= 5;
             }
-            if(balance > 2){
+            if(balance >= 2){
                 currency.put(2, balance/2);
                 balance %= 2;
             }
-            if(balance > 1){
+            if(balance >= 1){
                 currency.put(1, balance/1);
                 balance %= 1;
             }
         }
 
 
-        for (HashMap.Entry<Integer, Integer> entry : currency.entrySet()) {
+        /* for (HashMap.Entry<Integer, Integer> entry : currency.entrySet()) {
             //System.out.println(entry.getValue());
             if(entry.getValue() != 0){
                 System.out.print("₹"+entry.getKey()+"("+entry.getValue()+")  ");
+            }
+        } */
+        for(int i : currency.keySet()){
+            if(currency.get(i) != 0){
+                System.out.print("₹"+i+"("+currency.get(i)+")  ");
             }
         }
 
         System.out.println();
 
     }
+
+
+    /* static void cashBox(){
+        HashMap<Integer,Integer> cash = new HashMap<>();
+        cash.put(200, 20);
+        cash.put(100, 20);
+        cash.put(50, 20);
+        cash.put(10, 20);
+        cash.put(5, 50);
+        cash.put(2, 50);
+        cash.put(1, 50);
+
+
+        for(int i : cash.keySet()){
+            while(cash.get(i) != 0){
+                
+            }
+        }
+        
+
+    } */
 
 
 
@@ -137,20 +166,23 @@ public class VendingMachine {
             items.put("C2", "Chips");
             items.put("D3", "Candy");
             items.put("B4", "Water");
+            items.put("E5", "Chocolate");
 
             cost.put("A1", 25);
             cost.put("C2", 30);
             cost.put("D3", 10);
             cost.put("B4", 20);
+            cost.put("E5", 25);
 
-            stock.put("A1", 11);
-            stock.put("C2", 15);
-            stock.put("D3", 6);
+            stock.put("A1", 4);
+            stock.put("C2", 3);
+            stock.put("D3", 1);
             stock.put("B4", 8);
+            stock.put("E5", 5);
 
         
             while (true) {
-                System.out.println("\n\n1. Display Items");
+                System.out.println("\n\n1. Display Items \t\t\t\t\t\t balance : ₹"+balance);
                 System.out.println("2. Insert Money");
                 System.out.println("3. Select Item");
                 System.out.println("4. Return Change");
@@ -158,7 +190,6 @@ public class VendingMachine {
                 System.out.print("Choose an option: ");
                 int choice = scanner.nextInt();
 
-            
                 switch (choice) {
                     case 1 -> displayItems(items, cost, stock);
                     case 2 -> {
@@ -167,27 +198,33 @@ public class VendingMachine {
                         balance += amount;
                     }
                     case 3 -> {
-                        System.out.print("\nEnter item code: ");
-                        String code = scanner.next();
-                        String item = items.get(code);
+                        displayItems(items, cost, stock);
+                        System.out.print("\nEnter item code/s: ");
+                        scanner.nextLine();
+                        String codes = scanner.nextLine();
+                        String [] code = codes.split(" ");
+                        for(String i : code){
+                            String item = items.get(i);
 
-                        if (item == null) {
-                            System.out.println("\nInvalid selection.");
-                            return;
-                        }
+                            if (item == null) {
+                                System.out.println("\n"+ i + " is an Invalid selection!!");
+                                continue;
+                            }
             
-                        if (stock.get(code) <= 0) {
-                            System.out.println("\nItem out of stock.");
-                            return;
-                        }
+                            if (stock.get(i) <= 0) {
+                                System.out.println("\n"+items.get(i)+" is out of stock!!");
+                                continue;
+                            }
             
-                        if (balance >= cost.get(code)) {
-                            balance -= cost.get(code);
-                            stock.put(code, stock.get(code) - 1);
-                            System.out.println("\nDispensing "+items.get(code)+". \nRemaining balance: "+balance);
-                        } else {
-                            System.out.println("\nInsufficient balance. Please insert more money. \nItem price: "   +cost.get(code)+", current balance: "+balance);
+                            if (balance >= cost.get(i)) {
+                                balance -= cost.get(i);
+                                stock.put(i, stock.get(i) - 1);
+                                System.out.println("\nDispensing "+items.get(i)+"!!");
+                            } else {
+                                System.out.println("\nInsufficient balance!! \nPlease insert the required amount for the item!! \nItem price: "+cost.get(i)+", current balance: "+balance);
+                            }
                         }
+                        System.out.println("\nRemaining balance: ₹"+balance);
 
                     }
                     case 4 ->{

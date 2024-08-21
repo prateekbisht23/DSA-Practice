@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vending Machine</title>
+</head>
+<body>
+    <h1>Vending Machine</h1>
+
+    <h2>Available Items</h2>
+    <div id="inventory"></div>
+
+    <h2>Insert Money</h2>
+    <input type="number" id="amount" placeholder="Enter amount">
+    <button onclick="insertMoney()">Insert</button>
+
+    <h2>Select Item</h2>
+    <input type="text" id="itemCode" placeholder="Enter item code">
+    <button onclick="selectItem()">Select</button>
+
+    <h2>Return Change</h2>
+    <button onclick="returnChange()">Return Change</button>
+
+    <script>
+        function loadInventory() {
+            fetch('/vending-machine/inventory')
+                .then(response => response.json())
+                .then(data => {
+                    const inventoryDiv = document.getElementById('inventory');
+                    inventoryDiv.innerHTML = '';
+                    for (const [code, item] of Object.entries(data)) {
+                        inventoryDiv.innerHTML += `<p>${code}: ${item.name} ($${item.price}) - ${item.quantity} in stock</p>`;
+                    }
+                });
+        }
+
+        function insertMoney() {
+            const amount = document.getElementById('amount').value;
+            fetch(`/vending-machine/insert-money?amount=${amount}`, {
+                method: 'POST'
+            }).then(() => {
+                alert(`Inserted $${amount}`);
+            });
+        }
+
+        function selectItem() {
+            const code = document.getElementById('itemCode').value;
+            fetch(`/vending-machine/select-item?code=${code}`, {
+                method: 'POST'
+            }).then(response => response.text())
+              .then(message => {
+                  alert(message);
+                  loadInventory();
+              });
+        }
+
+        function returnChange() {
+            fetch('/vending-machine/return-change')
+                .then(response => response.json())
+                .then(data => {
+                    let message = 'Change returned:\n';
+                    for (const [denomination, count] of Object.entries(data)) {
+                        message += `${count} notes of $${denomination}\n`;
+                    }
+                    alert(message);
+                });
+        }
+
+        window.onload = loadInventory;
+    </script>
+</body>
+</html>
