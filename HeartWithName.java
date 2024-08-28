@@ -48,7 +48,7 @@ public class HeartWithName {
 
     public static void main(String[] args) {
         int n = 5;
-        /* for(int i = 3; i<=n; i++){
+        for(int i = 3; i<=n; i++){
             for(int j=0; j<n-i; j++){
                 System.out.print("  ");
             }
@@ -69,22 +69,40 @@ public class HeartWithName {
             }
 
             System.out.println();
-        } */
+        }
 
         int n2 = 9;
+        String name = "Amisha";
+        int strlen = name.length();
 
         for(int i=0; i<n2; i++){
             for(int j = 0; j<i; j++){
                 System.out.print("  ");
             }
-            for(int k=0; k<n2-i-1; k++){
-                if(i==0){
-                    
+            if(i == 0){
+                for(int k=0; k<(n2-i-(strlen/4 + 1)); k++){
+                    System.out.print("* ");
                 }
-                System.out.print("* ");
+                if(strlen % 2==0){
+                    System.out.print(name);
+                    for(int k=0; k<(n2-i-(strlen/4 +1)); k++){
+                        System.out.print("* ");
+                    }
+                }
+                else{
+                    System.out.print(name+" ");
+                    for(int k=0; k<(n2-i-(strlen/4 + 2)); k++){
+                        System.out.print("* ");
+                    }
+                }
             }
-            for(int k=0; k<n2-i; k++){
-                System.out.print("* ");
+            else{
+                for(int k=0; k<n2-i-1; k++){
+                    System.out.print("* ");
+                }
+                for(int k=0; k<n2-i; k++){
+                    System.out.print("* ");
+                }
             }
             for(int j = 0; j<i; j++){
                 System.out.print("  ");
