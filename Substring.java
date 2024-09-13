@@ -15,7 +15,7 @@ public class Substring {
     }
 
 
-    static ArrayList substring(String word){
+    static ArrayList<String> printSubString(String word){
         if(word.length() == 0){
             ArrayList<String> subStrings = new ArrayList<>();
             subStrings.add("");
@@ -26,7 +26,7 @@ public class Substring {
         char current = word.charAt(0);
         String remaining = word.substring(1);
         ArrayList<String> result = new ArrayList<>();
-        ArrayList<String> temp = substring(remaining);
+        ArrayList<String> temp = printSubString(remaining);
 
 
         for(String s : temp){
@@ -41,7 +41,7 @@ public class Substring {
 
         String word = "abc";
 
-        //System.out.println(substring(word));
+        //System.out.println(printSubString(word));
 
         printSub(word, "");
         

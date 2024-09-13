@@ -24,7 +24,7 @@ public class RopeCutProblem {
     } */
 
     public static void main(String[] args) {
-        int len = 5, a = 3, b = 2, c = 5;
+        int len = 5, a = 3, b = 6, c = 4;
         System.out.println(ropeCutProblem(len, a, b, c));
     }
 }
