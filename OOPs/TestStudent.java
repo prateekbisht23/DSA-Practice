@@ -9,9 +9,15 @@ public class TestStudent {
 
         ram = new Student(1001, "Ram", new int[] {20, 30, 40});
 
+        ram.print();
+
+        /* ram.rollNo = -1001;
+        ram.name = "@#%$";
+        ram.marks = new int[] {-1,-1,-1}; */
+
         // Student() or System.out.println() - calling bracket (there exists a constructor)
 
-        System.out.println(ram.rollNo + " " + ram.name + " " + ram.marks);
+        //System.out.println(ram.rollNo + " " + ram.name + " " + ram.marks);
         // . is a member access object
     }
 }

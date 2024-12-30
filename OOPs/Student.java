@@ -6,10 +6,9 @@
 class Student{
     // Members 
     // Instance Members
-
-    int rollNo;
-    String name;
-    int marks[] = new int[3];
+    private int rollNo;
+    private String name;
+    private int marks[] = new int[3];
 
     // Init block - it gets call before the constructor
     {
@@ -37,6 +36,11 @@ class Student{
         // this - keyword
         //current calling object reference
 
+        if(rollNo < 0){
+            System.out.println("Invalid Roll Number");
+            return;
+        }
+
         this.rollNo = rollNo;
         this.name = name;
         this.marks = marks;
@@ -45,6 +49,14 @@ class Student{
 
 
         // Shadow Problem - A problem occuring due to the same Variable and Parameter name
+    }
+
+    public void print(){
+        System.out.println(rollNo);
+        System.out.println(name);
+        for(int c=0; c<3; c++){
+            System.out.println(marks[c]);
+        }
     }
 
 }
