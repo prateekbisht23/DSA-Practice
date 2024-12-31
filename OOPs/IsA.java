@@ -16,7 +16,7 @@ class AdvancedSummary extends Summary{
     String time;
 }
 
-class Account{
+abstract class Account{
     int id;
     String name;
 
@@ -24,9 +24,12 @@ class Account{
         System.out.println("Account Deposit ... ");
     }
 
-    void withDraw(){
+    /* void withDraw(){
         System.out.println("Account WithDraw ... ");
-    }
+    } */
+
+    abstract void withDraw();
+
 
     Summary roi() throws Exception {
         System.out.println("Acoount ROI ... ");
@@ -43,6 +46,11 @@ class Account{
 class SavingAccount extends Account{
     void limit(){
         System.out.println("Saving Account Daily Limit of 50 Lakh");
+    }
+
+    @Override
+    void withDraw(){
+        System.out.println("Saving Account WithDraw with Limit");
     }
 
 
@@ -72,6 +80,11 @@ class SavingAccount extends Account{
 class CurrentAccount extends Account{
     void odLimit(){
         System.out.println("Current Account No Limit Extra WithDraw");
+    }
+
+    @Override
+    void withDraw(){
+        System.out.println("Saving Account WithDraw with OD Limit");
     }
 
     @Override
@@ -133,3 +146,10 @@ public class IsA{
         ca.odLimit(); */
     }
 }
+
+
+// ABSTRACT CLASS is the most generic class
+
+//in the above example Account should be an abstract class
+
+// -> we cannot create objects of an abstract classes
