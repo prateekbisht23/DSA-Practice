@@ -3,6 +3,8 @@
     Current Account
 */
 
+import java.io.*;
+
 class Summary{
     String title;
     String desc;
@@ -26,7 +28,7 @@ class Account{
         System.out.println("Account WithDraw ... ");
     }
 
-    Summary roi(){
+    Summary roi() throws Exception {
         System.out.println("Acoount ROI ... ");
         Summary summary = new Summary();
         summary.title = "ROI Report";
@@ -53,9 +55,11 @@ class SavingAccount extends Account{
     // wider access rule - we can increase the access of the class that way we can change the signature of the overridden method
     // covariant return type - an improved version of an object(its child class) can be returned
 
+    // sub exception rule - a child class can throw the specified version of the exception thrown by the parent class
+
     @Override
-    protected AdvancedSummary roi(){
-        super.roi();
+    protected AdvancedSummary roi() throws IOException {
+        //super.roi();
         System.out.println("Saving Account ROI ... ");
 
         AdvancedSummary advSummary = new AdvancedSummary();
