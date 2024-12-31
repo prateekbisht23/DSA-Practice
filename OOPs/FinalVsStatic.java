@@ -10,7 +10,6 @@ class H extends FinalVsStatic{
 final - prevent variable to modify
 final - prevent class inheritance
 final - prevent method overriding
-final - 
 */
 
 //final class can't be inherit
