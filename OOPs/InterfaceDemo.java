@@ -6,16 +6,25 @@
 
 // interface IPlayer{
 abstract interface IPlayer{
+
     public static final int MAX_POWER = 100;
     int MIN_POWER = 10;
 
     public abstract void walk();
+
     void jump();
+
     void punch();
+
 }
 
+interface ExtraPowers{
+    void power(int power);
+}
+
+
 // How to Do
-class RedPlayer implements IPlayer{
+class RedPlayer implements IPlayer, ExtraPowers{
 
     @Override
     public void walk(){
@@ -31,6 +40,11 @@ class RedPlayer implements IPlayer{
     public void punch(){
         final int VALUE = MAX_POWER;
         System.out.println("Red Player Punch " + VALUE);
+    }
+
+    @Override
+    public void power(int power){
+        System.out.println("Payer has Extra Powers ... ");
     }
 
 }
