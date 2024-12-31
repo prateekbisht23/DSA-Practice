@@ -13,7 +13,7 @@ class Summary{
 
 class AdvancedSummary extends Summary{
     String day;
-    String 
+    String time;
 }
 
 class Account{
@@ -85,21 +85,51 @@ class CurrentAccount extends Account{
 
 }
 
+class AccountCaller{
+
+    // call is a POLYMORPHIC FUNCTION - runs for the class and all its child classes
+    void call(Account account) throws Exception{
+        account.deposit();
+        account.withDraw();
+        account.roi();
+        
+        if(account instanceof SavingAccount savingAccount){
+            // DOWNCASTING
+            savingAccount.limit();
+        }
+        if(account instanceof CurrentAccount currentAccount){
+            currentAccount.odLimit();
+        }
+        
+        System.out.println("***********************************");
+    }
+}
+
 
 public class IsA{
-    public static void main(String[] args) {
-        SavingAccount sa = new SavingAccount();
-        sa.deposit();
+    public static void main(String[] args) throws Exception{
+
+        AccountCaller ac = new AccountCaller();
+
+        // SavingAccount sa = new SavingAccount();
+
+        // Account account = new SavingAccount();  // UPCASTING
+        ac.call(new SavingAccount());
+
+        /* sa.deposit();
         sa.withDraw();
         sa.roi();
-        sa.limit();
+        sa.limit(); */
 
-        System.out.println("***********************************");
+        // System.out.println("***********************************");
 
-        CurrentAccount ca = new CurrentAccount();
-        ca.deposit();
+        // CurrentAccount ca = new CurrentAccount();
+
+        ac.call(new CurrentAccount());
+        
+        /* ca.deposit();
         ca.withDraw();
         ca.roi();
-        ca.odLimit();
+        ca.odLimit(); */
     }
 }
